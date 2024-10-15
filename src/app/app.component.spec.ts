@@ -1,40 +1,174 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
-describe('AppComponent', () => {
+describe('isPrime(-4) function', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-
-      imports: [AppComponent, ActivatedRoute],
+      imports: [AppComponent],
       providers: [
-        {provide: ActivatedRoute, userValiu: {
-
-        }}
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            queryParams: of({ number: -4 })
+          }
+        }
       ]
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('should be a text about negative number', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+
+    fixture.detectChanges();
+
+    expect(app.text).toBe('-4 is not a prime number because it is a negative number.');
+  });
+
+  it('should return false', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    fixture.detectChanges();
+
+    expect(app.isPrime('-4')).toBeFalsy();
   });
 });
 
-// describe('isPrime(number) function', () => {
-//   let fixture: ComponentFixture<AppComponent>;
-//   let componentInstance: AppComponent;
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [AppComponent],
-//     }).compileComponents();
-//   });
+describe("isPrime('teszt') function", () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            queryParams: of({ number: 'teszt' })
+          }
+        }
+      ]
+    }).compileComponents();
+  });
 
-//   fixture = TestBed.createComponent(AppComponent);
-//   componentInstance = fixture.componentInstance;
+  it('should be undefined', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
 
-//   it('should text be "0 is not a prime number."', () => {
-//     expect(componentInstance.text).toEqual('0 is not a prime number.');
-//   })
-// })
+    fixture.detectChanges();
+
+    expect(app.text).toBe(undefined);
+  });
+
+  it('should return false', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    fixture.detectChanges();
+
+    expect(app.isPrime('teszt')).toBeFalsy();
+  });
+});
+
+describe('isPrime(1) function', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            queryParams: of({ number: 1 })
+          }
+        }
+      ]
+    }).compileComponents();
+  });
+
+  it('should write that 1 is not a prime number', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    fixture.detectChanges();
+
+    expect(app.text).toBe('1 is not a prime number.');
+  });
+
+  it('should return false', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    fixture.detectChanges();
+
+    expect(app.isPrime('1')).toBeFalsy();
+  });
+});
+
+describe('isPrime(6) function', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            queryParams: of({ number: 6 })
+          }
+        }
+      ]
+    }).compileComponents();
+  });
+
+  it('should write it is not a prime number', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    fixture.detectChanges();
+
+    expect(app.text).toBe('6 is not a prime number because it is divisible by 2');
+  });
+
+  it('should return false', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    fixture.detectChanges();
+
+    expect(app.isPrime('6')).toBeFalsy();
+  });
+});
+
+describe('isPrime(3)', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            queryParams: of({ number: 3 })
+          }
+        }
+      ]
+    }).compileComponents();
+  });
+
+  it('should write it is a prime number', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    fixture.detectChanges();
+
+    expect(app.text).toBe('3 is a prime number! :)');
+  });
+
+  it('should return true', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    fixture.detectChanges();
+
+    expect(app.isPrime('3')).toBeTruthy();
+  });
+});

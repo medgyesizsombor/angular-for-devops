@@ -35,7 +35,9 @@ export class AppComponent implements OnInit {
   /**
    * Check if the number is prime number
    */
-  isPrime(number: number) {
+  isPrime(numberFromParam: string) {
+    const number = Number(numberFromParam);
+
     if (!number || isNaN(number)) {
       console.error('Please provide a number');
       return;
