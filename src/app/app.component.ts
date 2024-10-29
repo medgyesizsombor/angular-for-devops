@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -9,17 +9,21 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   getUrlSub: Subscription | undefined;
   text: string | undefined;
-  isLoading: boolean = false;
+  isLoading = false;
 
   constructor(
-    private route: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.loadData();
+  }
+
+  ngOnDestroy() {
+    this.getUrlSub?.unsubscribe();
   }
 
   /**
@@ -27,7 +31,7 @@ export class AppComponent implements OnInit {
    */
   private loadData() {
     this.isLoading = true;
-    this.getUrlSub = this.route.queryParams.subscribe((params: Params) => {
+    this.getUrlSub = this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.isPrime(params['number']);
     });
   }
@@ -39,8 +43,8 @@ export class AppComponent implements OnInit {
     const number = Number(numberFromParam);
 
     if (!number || isNaN(number)) {
-      console.error('Please provide a number');
-      return;
+      this.text = `${numberFromParam} is not a number.`;
+      return false;
     }
 
     if (number < 0) {
@@ -53,9 +57,8 @@ export class AppComponent implements OnInit {
       return false;
     }
 
-    let isPrime = true;
+    const isPrime = true;
     const squaredNumber = Math.floor(Math.sqrt(number));
-    console.log(squaredNumber);
     for (let i = 2; i <= squaredNumber; i++) {
       if (number % i === 0) {
         this.text = `${number} is not a prime number because it is divisible by ${i}`;
