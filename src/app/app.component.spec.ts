@@ -18,7 +18,7 @@ describe('isPrime(-4) function', () => {
     }).compileComponents();
   });
 
-  it('should be a text about negative number', () => {
+  it('should write that -4 is not a prime number', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
 
@@ -52,13 +52,13 @@ describe("isPrime('teszt') function", () => {
     }).compileComponents();
   });
 
-  it('should be undefined', () => {
+  it('should write that teszt is not a number', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
 
     fixture.detectChanges();
 
-    expect(app.text).toBe(undefined);
+    expect(app.text).toBe('teszt is not a number.');
   });
 
   it('should return false', () => {
@@ -120,7 +120,7 @@ describe('isPrime(6) function', () => {
     }).compileComponents();
   });
 
-  it('should write it is not a prime number', () => {
+  it('should write that 6 is not a prime number', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
 
@@ -154,7 +154,7 @@ describe('isPrime(3)', () => {
     }).compileComponents();
   });
 
-  it('should write it is a prime number', () => {
+  it('should write that 3 is a prime number', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
 
